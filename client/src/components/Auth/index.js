@@ -5,17 +5,17 @@ import bubble from '../../assets/images/chat.svg';
 import Login from './Login';
 import Signup from './Signup';
 
-const Auth = ({ type }) => {
+const Auth = ({ type, user, login, register }) => {
   const classes = useStyles();
 
   const renderAuth = (type) => {
     switch (type) {
       case 'login':
-        return <Login />;
+        return <Login user={user} login={login} />;
       case 'signup':
-        return <Signup />;
+        return <Signup user={user} register={register} />;
       default:
-        return <Login />;
+        return <Login user={user} login={login} />;
     }
   };
 

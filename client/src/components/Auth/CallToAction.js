@@ -8,7 +8,7 @@ const CallToAction = ({ ctaText, buttonText, path }) => {
   const history = useHistory();
 
   return (
-    <Grid container alignItems="center" justify="flex-end">
+    <Grid container alignItems="center" justifyContent="flex-end">
       <Box mr={3}>
         <Typography color="textSecondary">{ctaText}</Typography>
       </Box>

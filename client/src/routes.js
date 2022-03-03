@@ -2,9 +2,8 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Route, Switch, withRouter } from 'react-router-dom';
 
-import { SnackbarError, Home } from './components';
+import { SnackbarError, Home, Auth, TopBarLoader } from './components';
 import { SocketContext, socket } from './context/socket';
-import Auth from './components/Auth';
 
 const Routes = (props) => {
   const [user, setUser] = useState({
@@ -83,7 +82,7 @@ const Routes = (props) => {
   }, [user?.error]);
 
   if (user?.isFetching) {
-    return <div>Loading...</div>;
+    return <TopBarLoader />;
   }
 
   return (

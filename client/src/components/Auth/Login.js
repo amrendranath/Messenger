@@ -32,17 +32,17 @@ const Login = ({ user, login }) => {
 
   return (
     <Grid container direction="column" justifyContent="center">
-      <Grid item sx>
+      <Grid item>
         <CallToAction
           ctaText="Don't have an account?"
           buttonText="Create account"
           path="/register"
         />
       </Grid>
-      <Grid item sx className={classes.formContainer}>
+      <Grid item className={classes.formContainer}>
         <Typography variant="h4">Welcome back!</Typography>
         <form onSubmit={handleLogin} className={classes.form}>
-          <FormControl margin="normal">
+          <FormControl margin="normal" required>
             <TextField
               aria-label="username"
               label="Username"
@@ -52,7 +52,7 @@ const Login = ({ user, login }) => {
               required
             />
           </FormControl>
-          <FormControl margin="normal">
+          <FormControl margin="normal" required>
             <TextField
               label="Password"
               aria-label="password"
@@ -61,8 +61,8 @@ const Login = ({ user, login }) => {
               margin="normal"
               InputProps={{
                 endAdornment: (
-                  <InputAdornment>
-                    <Link href="#" color="primary">
+                  <InputAdornment position="end">
+                    <Link href="#" to="#" color="primary">
                       Forgot?
                     </Link>
                   </InputAdornment>

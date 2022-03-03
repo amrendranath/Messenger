@@ -82,9 +82,11 @@ const Home = ({ user, logout }) => {
     (recipientId, message) => {
       const newConversations = conversations.map((convo) => {
         if (convo.otherUser.id === recipientId) {
-          convo.messages.push(message);
-          convo.latestMessageText = message.text;
-          convo.id = message.conversationId;
+          const convoCopy = { ...convo };
+          convoCopy.messages.push(message);
+          convoCopy.latestMessageText = message.text;
+          convoCopy.id = message.conversationId;
+          return convoCopy;
         }
         return convo;
       });
@@ -109,8 +111,10 @@ const Home = ({ user, logout }) => {
 
       const newConversations = conversations.map((convo) => {
         if (convo.id === message.conversationId) {
-          convo.messages.push(message);
-          convo.latestMessageText = message.text;
+          const convoCopy = { ...convo };
+          convoCopy.messages.push(message);
+          convoCopy.latestMessageText = message.text;
+          return convoCopy;
         }
         return convo;
       });
@@ -186,7 +190,9 @@ const Home = ({ user, logout }) => {
       try {
         const { data } = await axios.get('/api/conversations');
         data.forEach((item) => {
-          item.messages.sort((a, b) => a.id - b.id);
+          item.messages.sort(
+            (a, b) => Date.parse(a.createdAt) - Date.parse(b.createdAt)
+          );
         });
         setConversations(data);
       } catch (error) {

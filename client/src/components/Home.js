@@ -7,6 +7,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { SidebarContainer } from '../components/Sidebar';
 import { ActiveChat } from '../components/ActiveChat';
 import { SocketContext } from '../context/socket';
+import { AuthContext } from '../context/auth';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -14,10 +15,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Home = ({ user, logout }) => {
-  const history = useHistory();
-
+const Home = () => {
+  const { user, logout } = useContext(AuthContext);
   const socket = useContext(SocketContext);
+  const history = useHistory();
 
   const [conversations, setConversations] = useState([]);
   const [activeConversation, setActiveConversation] = useState(null);

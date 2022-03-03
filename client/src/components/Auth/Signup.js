@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import {
   Grid,
@@ -11,8 +11,10 @@ import {
 } from '@material-ui/core';
 import CallToAction from './CallToAction';
 import useStyles from './styles';
+import { AuthContext } from '../../context/auth';
 
-const Signup = ({ user, register }) => {
+const Signup = () => {
+  const { user, register } = useContext(AuthContext);
   const history = useHistory();
   const classes = useStyles();
 

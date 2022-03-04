@@ -1,7 +1,14 @@
 import React, { useCallback, useEffect, useState, useContext } from 'react';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
-import { Grid, CssBaseline, Button } from '@material-ui/core';
+import {
+  Grid,
+  CssBaseline,
+  Button,
+  AppBar,
+  Toolbar,
+  Typography,
+} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 import { SidebarContainer } from '../components/Sidebar';
@@ -12,6 +19,12 @@ import { AuthContext } from '../context/auth';
 const useStyles = makeStyles((theme) => ({
   root: {
     height: '100vh',
+  },
+  appbar: {
+    flexGrow: 1,
+  },
+  title: {
+    flexGrow: 1,
   },
 }));
 
@@ -190,11 +203,7 @@ const Home = () => {
     const fetchConversations = async () => {
       try {
         const { data } = await axios.get('/api/conversations');
-        data.forEach((item) => {
-          item.messages.sort(
-            (a, b) => Date.parse(a.createdAt) - Date.parse(b.createdAt)
-          );
-        });
+        console.log('DATA  >>', data);
         setConversations(data);
       } catch (error) {
         console.error(error);
@@ -205,6 +214,47 @@ const Home = () => {
     }
   }, [user]);
 
+  useEffect(() => {
+    if (activeConversation) {
+      updateReadTime();
+    }
+  }, [activeConversation]);
+
+  const updateReadTime = async () => {
+    const conversation = conversations
+      ? conversations.find(
+          (conversation) =>
+            conversation.otherUser.username === activeConversation
+        )
+      : {};
+    const payload = {
+      recipientId: conversation.otherUser.id,
+      conversationId: conversation.id || null,
+      readTime: new Date().toISOString(),
+    };
+    try {
+      await axios.put('/api/updateReadTime', payload);
+      const { recipientId, conversationId, readTime } = payload;
+
+      const newConversations = conversations.map((convo) => {
+        if (convo.id === conversationId) {
+          const convoCopy = { ...convo };
+          if (convo.user1Id === recipientId) {
+            convoCopy.user2ReadTime = readTime;
+          } else {
+            convoCopy.user1ReadTime = readTime;
+          }
+          convoCopy.unreadCount = 0;
+          return convoCopy;
+        }
+        return convo;
+      });
+      setConversations(newConversations);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const handleLogout = async () => {
     if (user && user.id) {
       await logout(user.id);
@@ -213,7 +263,18 @@ const Home = () => {
 
   return (
     <>
-      <Button onClick={handleLogout}>Logout</Button>
+      <div className={classes.appbar}>
+        <AppBar position="relative" color="primary">
+          <Toolbar>
+            <Typography variant="h6" className={classes.title}>
+              Chat Room
+            </Typography>
+            <Button onClick={handleLogout} variant="outlined" color="inherit">
+              Logout
+            </Button>
+          </Toolbar>
+        </AppBar>
+      </div>
       <Grid container component="main" className={classes.root}>
         <CssBaseline />
         <SidebarContainer

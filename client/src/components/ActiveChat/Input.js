@@ -56,7 +56,7 @@ const Input = ({ otherUser, conversationId, user, postMessage }) => {
           name="text"
           onChange={handleChange}
           endAdornment={
-            <InputAdornment>
+            <InputAdornment position="end">
               <IconButton>
                 <SmileIcon />
               </IconButton>

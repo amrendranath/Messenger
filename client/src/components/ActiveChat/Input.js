@@ -1,6 +1,13 @@
 import React, { useState } from 'react';
-import { FormControl, FilledInput } from '@material-ui/core';
+import {
+  FormControl,
+  FilledInput,
+  InputAdornment,
+  IconButton,
+} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import FileIcon from '../../assets/images/fileIcon';
+import SmileIcon from '../../assets/images/smileIcon';
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -48,6 +55,16 @@ const Input = ({ otherUser, conversationId, user, postMessage }) => {
           value={text}
           name="text"
           onChange={handleChange}
+          endAdornment={
+            <InputAdornment>
+              <IconButton>
+                <SmileIcon />
+              </IconButton>
+              <IconButton>
+                <FileIcon />
+              </IconButton>
+            </InputAdornment>
+          }
         />
       </FormControl>
     </form>

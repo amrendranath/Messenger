@@ -33,6 +33,7 @@ const Messages = (props) => {
             text={message.text}
             time={time}
             otherUser={otherUser}
+            isTyping={message?.isTyping}
           />
         );
       })}

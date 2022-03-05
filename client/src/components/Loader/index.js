@@ -1,5 +1,6 @@
 import React from 'react';
-import { LinearProgress } from '@material-ui/core';
+import { LinearProgress, Box } from '@material-ui/core';
+import '../../assets/css/threeDotLoader.css';
 
 export const TopBarLoader = () => {
   return (
@@ -8,4 +9,8 @@ export const TopBarLoader = () => {
       <LinearProgress color="primary" />
     </>
   );
+};
+
+export const ThreeDotLoader = () => {
+  return <Box className="dot-flashing" />;
 };

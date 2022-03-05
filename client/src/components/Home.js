@@ -18,7 +18,7 @@ import { AuthContext } from '../context/auth';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    height: '100vh',
+    height: 'calc(100vh - 64px)',
   },
   appbar: {
     flexGrow: 1,
@@ -169,6 +169,31 @@ const Home = () => {
     );
   }, []);
 
+  const handleTypingIndicator = useCallback(
+    (data) => {
+      // if sender isn't null, that means the message needs to be put in a brand new convo
+      const { user, typing } = data;
+      setConversations((prev) =>
+        prev.map((convo) => {
+          if (convo.otherUser.id === user.id) {
+            const convoCopy = { ...convo };
+            if (typing) {
+              convoCopy.messages.push({ id: Date.now(), isTyping: true });
+            } else {
+              convoCopy.messages = convoCopy.messages.filter(
+                (message) => Boolean(message?.isTyping) === false
+              );
+            }
+            return convoCopy;
+          } else {
+            return convo;
+          }
+        })
+      );
+    },
+    [setConversations]
+  );
+
   // Lifecycle
 
   useEffect(() => {
@@ -176,6 +201,7 @@ const Home = () => {
     socket.on('add-online-user', addOnlineUser);
     socket.on('remove-offline-user', removeOfflineUser);
     socket.on('new-message', addMessageToConversation);
+    socket.on('display', handleTypingIndicator);
 
     return () => {
       // before the component is destroyed
@@ -183,8 +209,15 @@ const Home = () => {
       socket.off('add-online-user', addOnlineUser);
       socket.off('remove-offline-user', removeOfflineUser);
       socket.off('new-message', addMessageToConversation);
+      socket.off('display', handleTypingIndicator);
     };
-  }, [addMessageToConversation, addOnlineUser, removeOfflineUser, socket]);
+  }, [
+    addMessageToConversation,
+    addOnlineUser,
+    handleTypingIndicator,
+    removeOfflineUser,
+    socket,
+  ]);
 
   useEffect(() => {
     // when fetching, prevent redirect
@@ -203,7 +236,6 @@ const Home = () => {
     const fetchConversations = async () => {
       try {
         const { data } = await axios.get('/api/conversations');
-        console.log('DATA  >>', data);
         setConversations(data);
       } catch (error) {
         console.error(error);
@@ -218,6 +250,7 @@ const Home = () => {
     if (activeConversation) {
       updateReadTime();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeConversation]);
 
   const updateReadTime = async () => {

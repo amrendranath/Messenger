@@ -37,9 +37,9 @@ const useStyles = makeStyles((theme) => ({
 
 const ChatContent = ({ conversation }) => {
   const classes = useStyles();
-
   const { otherUser, unreadCount } = conversation;
   const latestMessageText = conversation.id && conversation.latestMessageText;
+  const lastMessage = conversation.messages[conversation.messages.length - 1];
 
   return (
     <Box className={classes.root}>
@@ -48,7 +48,7 @@ const ChatContent = ({ conversation }) => {
           {otherUser.username}
         </Typography>
         <Typography className={classes.previewText}>
-          {latestMessageText}
+          {lastMessage?.isTyping ? <i>Typing...</i> : latestMessageText}
         </Typography>
       </Box>
       {unreadCount > 0 && (

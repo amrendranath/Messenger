@@ -28,21 +28,20 @@ In your description, please explain a couple different ways we could have stored
 
 ##### Updated Login UI
 
-<img src="https://i.ibb.co/d6ZJkPD/Screenshot-2022-03-06-at-1-46-13-PM.png" alt="Screenshot-2022-03-06-at-1-46-13-PM" border="0">
-![Login UI](screenshots/login.png)
+<img src="screenshots/login.png" alt="Login" border="0">
 
 ##### Updated Register UI
 
-<img src="https://i.ibb.co/47ctnbr/Screenshot-2022-03-06-at-1-46-22-PM.png" alt="Screenshot-2022-03-06-at-1-46-22-PM" border="0">
+<img src="screenshots/register.png" alt="Register" border="0">
 
 ##### Display Unread Message
 
-<img src="https://i.ibb.co/FxtpYhk/Screenshot-2022-03-06-at-1-46-43-PM.png" alt="Screenshot-2022-03-06-at-1-46-43-PM" border="0">
+<img src="screenshots/unreadCount.png" alt="Unread message count" border="0">
 
 ##### Added Emoji and File Upload on Input field
 
-<img src="https://i.ibb.co/dgwZhD4/Screenshot-2022-03-06-at-1-46-54-PM.png" alt="Screenshot-2022-03-06-at-1-46-54-PM" border="0">
+<img src="screenshots/smile_and_file_icon.png" alt="Smile and File icon on input field" border="0">
 
 ##### Show Typing Indicator
 
-<img src="https://i.ibb.co/MgwfCPj/Screenshot-2022-03-06-at-1-47-14-PM.png" alt="Screenshot-2022-03-06-at-1-47-14-PM" border="0">
+<img src="screenshots/typing_indicator.png" alt="Typing Indicator" border="0">

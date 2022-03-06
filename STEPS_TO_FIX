@@ -1,7 +1,0 @@
-Steps to fix the issues.
-
-I have used browser debugger tool identify the main problem which is component not rendering. I found three issues : 
-
-1. To render the component when user send a message, create new variable (copy of old) and make changes in that variable before setting the state value.
-2. Use async await on "postMessage" function because "saveMessage" returns a promis.
-3. To display correct order of message sort the messages by ids.

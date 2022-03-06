@@ -45,3 +45,5 @@ In your description, please explain a couple different ways we could have stored
 ##### Show Typing Indicator
 
 <img src="screenshots/typing_indicator.png" alt="Typing Indicator" border="0">
+
+I can think of one way to read status - For every message, we can store a key read time. When user read those messages, we can update it accordingly. Benefit for this approach is that we can track the read time of the message by storing it. The drawbacks of this approach need to add more extra fields on database and update it.
